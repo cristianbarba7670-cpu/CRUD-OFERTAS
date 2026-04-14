@@ -8,11 +8,11 @@
 <body>
     <h1>Formulario de Oferta</h1>
 
-<!-- <p>
-<a href="{{ route('ofertas.index') }}">Volver a la lista de ofertas</a>
-</p> -->
+<p>
+<a href="{{ route('oferta.index') }}">Volver a la lista de ofertas</a>
+</p>
 
-<form action="{{ route('ofertas.store') }}" method="POST">
+<form action="{{ route('oferta.store') }}" method="POST">
 
 @csrf
 

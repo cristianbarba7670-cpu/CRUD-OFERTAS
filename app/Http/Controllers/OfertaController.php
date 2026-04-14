@@ -12,7 +12,10 @@ class OfertaController extends Controller
      */
     public function index()
     {
-        //
+        return view('oferta-index')
+        ->with([
+            'ofertas' => Oferta::all()
+        ]);
     }
 
     /**
@@ -20,7 +23,7 @@ class OfertaController extends Controller
      */
     public function create()
     {
-        return view('ofertas-create');
+        return view('oferta-create');
     }
 
     /**
@@ -44,38 +47,60 @@ class OfertaController extends Controller
         $oferta->precio_descuento = $request->precio_descuento;
         $oferta->save();
 
-        return redirect()->route('ofertas.index');
+        return redirect()->route('oferta.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Oferta $oferta)
     {
-        //
+        return view('oferta-show')
+        ->with([
+            'oferta' => $oferta
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Oferta $oferta)
     {
-        //
+        return view('oferta-edit')
+        ->with([
+            'oferta' => $oferta
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Oferta $oferta)
     {
-        //
+        $request->validate([
+            'titulo' => 'required',
+            'vigencia' => 'required|date',
+            'tienda' => 'required',
+            'precio_original' => 'required|numeric',
+            'precio_descuento' => 'required|numeric'
+        ]);
+
+        $oferta->titulo = $request->titulo;
+        $oferta->vigencia = $request->vigencia;
+        $oferta->tienda = $request->tienda;
+        $oferta->precio_original = $request->precio_original;
+        $oferta->precio_descuento = $request->precio_descuento;
+        $oferta->save();
+
+        return redirect()->route('oferta.show', $oferta);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Oferta $oferta)
     {
-        //
+        $oferta->delete();
+        return redirect()->route('oferta.index');
     }
 }

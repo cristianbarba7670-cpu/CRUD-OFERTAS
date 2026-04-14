@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('oferta_controllers', function (Blueprint $table) {
+        Schema::create('ofertas', function (Blueprint $table) {
             $table->id();
+            $table->string('titulo');
+            $table->date('vigencia');
+            $table->string('tienda');
+            $table->decimal('precio_original', 8, 2);
+            $table->decimal('precio_descuento', 8, 2);
             $table->timestamps();
         });
     }
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('oferta_controllers');
+        Schema::dropIfExists('ofertas');
     }
 };
